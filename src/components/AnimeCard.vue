@@ -5,63 +5,60 @@
     animeData: Anime
  }
 
- const reveal = false
- const props = defineProps<Props>()
+ const statusMap = {
+    'finished_airing': {
+        text: "Finalized",
+        class: "red_circle"
+    }
+ }
 
- console.log(props.animeData)
+ const selectAnime = (animeName) => {
+    alert(`You have selected ${animeName}`)
+ }
+
+ const props = defineProps<Props>()
 
 </script>
 <template>
-  <v-card
-    class="mx-auto mr-3"
-    max-width="344"
-  >
+  <v-card>
     <v-img
-        src="http://localhost:5173/hxh.jpg"
-        cover
+        :src="props.animeData.main_picture.large"
         height="100%"
     >
     </v-img>
     <v-card-text>
       <div class="text-h6 font-weight-bold">{{ props.animeData.title }}</div>
-      <p class="text--primary">
-        {{ props.animeData.status }}
-      </p>
+      <div class="status_container">
+        <p class="text--primary mr-3">
+            {{ statusMap[props.animeData.status].text }}
+        </p>
+        <div :class="statusMap[props.animeData.status].class"></div>
+      </div>
     </v-card-text>
     <v-card-actions>
       <v-btn
-        variant="text"
-        color="teal-accent-4"
-        @click="reveal = true"
+        variant="tonal"
+        color="primary"
+        @click="selectAnime(props.animeData.title)"
       >
-        Learn More
+        Select
       </v-btn>
     </v-card-actions>
 
-    <v-expand-transition>
-      <v-card
-        v-if="reveal"
-        class="v-card--reveal"
-        style="height: 100%;"
-      >
-        <v-card-text class="pb-0">
-          <p class="text-h6 text--primary">
-            Synopsis
-          </p>
-          <p>late 16th century (as a noun denoting a place where alms were distributed): from medieval Latin eleemosynarius, from late Latin eleemosyna ‘alms’, from Greek eleēmosunē ‘compassion’ </p>
-        </v-card-text>
-        <v-card-actions class="pt-0">
-          <v-btn
-            variant="text"
-            color="teal-accent-4"
-            @click="reveal = false"
-          >
-            Close
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-expand-transition>
   </v-card>
 </template>
 
+<style scoped>
+    .red_circle {
+        margin-top: 5px;
+        width: 10px;
+        height: 10px;
+        background-color: red;
+        border-radius: 50%;
+    }
 
+    .status_container {
+        padding-top: 1rem;
+        display: flex;
+    }
+</style>

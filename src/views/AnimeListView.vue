@@ -1,28 +1,23 @@
 <script setup lang="ts">
-import { onMounted, reactive } from 'vue';
+import { onMounted, ref } from 'vue';
 import AnimeCard from '../components/AnimeCard.vue'
 import getAnimes from '../helpers/GetAnimes';
 
-let animeLists = reactive([])
+let animeLists = ref([])
 
 onMounted(async () => {
-    animeLists = await getAnimes()
+    animeLists.value = await getAnimes()
 })
 
 </script>
 
 <template>
-    <div class="anime_list_section">
-        <div v-for="anime in animeLists" :key="anime.id">
-            <AnimeCard :animeData="anime" />
-        </div>
-    </div>
+    <v-container>
+        <v-row>
+            <v-col v-for="anime in animeLists" :key="anime.id" cols="3">
+                <AnimeCard :animeData="anime" />
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
-<style scoped>
-    .anime_list_section {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-</style>

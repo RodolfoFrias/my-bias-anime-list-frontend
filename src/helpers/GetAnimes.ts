@@ -16,7 +16,7 @@ export default async function getAnimes(): Promise<Anime[]> {
         axiosResponse = await axios.get(API_URL, {
             params: {
                 fields: 'id,title,main_picture,synopsis,status',
-                limit: '4'
+                limit: '10'
             },
             headers: {
                 'X-RapidAPI-Key': API_KEY,

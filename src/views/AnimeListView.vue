@@ -14,7 +14,7 @@ onMounted(async () => {
 <template>
     <v-container>
         <v-row>
-            <v-col v-for="anime in animeLists" :key="anime.id" cols="3">
+            <v-col v-for="anime in animeLists" :key="anime.title+'-'+anime.id" cols="3">
                 <AnimeCard :animeData="anime" />
             </v-col>
         </v-row>

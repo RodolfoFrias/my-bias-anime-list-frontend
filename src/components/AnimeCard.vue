@@ -1,5 +1,6 @@
 <script setup lang="ts">
  import type { Anime } from '../models/AnimeModel';
+ import ReviewDialog from './ReviewDialog.vue';
 
  interface Props {
     animeData: Anime
@@ -20,18 +21,14 @@
     }
  }
 
- const selectAnime = (animeName) => {
-    alert(`You have selected ${animeName}`)
- }
-
  const props = defineProps<Props>()
 
 </script>
 <template>
   <v-card>
     <v-img
-        :src="props.animeData.main_picture.large"
-        height="100%"
+      :src="props.animeData.main_picture.large"
+      height="100%"
     >
     </v-img>
     <v-card-text>
@@ -44,13 +41,7 @@
       </div>
     </v-card-text>
     <v-card-actions>
-      <v-btn
-        variant="tonal"
-        color="primary"
-        @click="selectAnime(props.animeData.title)"
-      >
-        Select
-      </v-btn>
+      <ReviewDialog :animeId="props.animeData.id" :animeName="props.animeData.title" />
     </v-card-actions>
 
   </v-card>

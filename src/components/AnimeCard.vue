@@ -1,5 +1,5 @@
 <script setup lang="ts">
- import type { Anime } from '../models/AnimeModel';
+ import type { Anime } from '../models/Anime';
  import ReviewDialog from './ReviewDialog.vue';
 
  interface Props {

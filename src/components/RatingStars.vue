@@ -1,30 +1,35 @@
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
+<script setup lang="ts">
+  import { ref, defineEmits } from 'vue';
 
-// It does not work for some reason
-export default defineComponent({
-    setup() {
-        const rating = ref<Number>(0)
-        return { rating }
-    },
-})
+  const colors = ['red', 'orange', 'grey', 'cyan', 'green']
+  const labels = ['bad', 'so so', 'ok', 'good', 'great']
+  const rating = ref<number>(0);
+
+  const emit = defineEmits(['ratingChanged'])
+
+  function ratingChanged ():void {
+    emit('ratingChanged', rating.value)
+  }
+
 </script>
 
 <template>
   <div class="text-center">
-    <p>How many stones?</p>
+    <p class="mb-3">How many stones?</p>
     <v-rating
-        v-model="rating"
-        color="white"
-        active-color="yellow-accent-4"
-        half-increments
-        hover
-        size="18"
-    ></v-rating>
+      v-model="rating"
+      :item-labels="labels"
+      @click="ratingChanged"
+    >
+      <template v-slot:item-label="props">
+        <span
+          class="font-weight-black text-caption"
+          :class="`text-${colors[props.index]}`"
+        >
+          {{ props.label }}
+        </span>
+      </template>
+    </v-rating>
     <pre>{{ rating }}</pre>
   </div>
 </template>
-
-<style scoped>
-    
-</style>

@@ -1,26 +1,33 @@
-<script  lang="ts">
-import { defineComponent, ref } from 'vue';
-import RatingStars from './RatingStars.vue';
+<script setup lang="ts">
+  import { ref } from 'vue';
+  import RatingStars from './RatingStars.vue';
+  import { AnimeReview } from '../models/AnimeReview';
+  import saveAnimeReview from '../helpers/SaveAnimeReview';
 
-export default defineComponent({
-    // components: { RatingStars },
-    props: {
-        animeName: String,
-        animeId: String,
-    },
-    setup() {
-        const dialog = ref<boolean>(false)
+  const dialog = ref<boolean>(false)
+  const textReview = ref<string>('')
+  let rating = 0
 
-        return {
-            dialog
-        }
-    },
-    methods: {
-        sendReview() {
-            alert('OK')
-        }
-    }
-})
+  const props = defineProps({
+      animeName: String,
+      animeId: String,
+  })
+
+  async function sendReview(): Promise<void> {
+      const reviewToSend: AnimeReview = {
+        externalId: props.animeId,
+        name: props.animeName,
+        textReview: textReview.value,
+        stars: rating
+      }
+
+    await saveAnimeReview(reviewToSend);
+  }
+
+  function setRating(updatedRating) {
+    rating = updatedRating
+  }
+
 </script>
 
 
@@ -49,7 +56,12 @@ export default defineComponent({
             variant="filled"
             label="Comment"
             auto-grow
+            v-model="textReview"
         ></v-textarea>
+
+        <!-- It is not working, maybe a Vuetify issue? -->
+        <RatingStars @ratingChanged="setRating" />
+  
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn

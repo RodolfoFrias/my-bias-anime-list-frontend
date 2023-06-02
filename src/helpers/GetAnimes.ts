@@ -6,14 +6,9 @@ import envConfig  from '@/helpers/EnvConfig';
 
 export default async function getAnimes(): Promise<Anime[]> {
     const animesResponse = ref<Anime[]>([])
-    let axiosResponse: AxiosResponse;
 
-    try {
-        axiosResponse = await axios.get(envConfig.API_URL) 
-        animesResponse.value = axiosResponse.data.animes
-    } catch (error) {
-        console.error(error)
-    }
+    const axiosResponse: AxiosResponse = await axios.get(envConfig.API_URL) 
+    animesResponse.value = axiosResponse.data.animes
 
     return animesResponse.value
 }

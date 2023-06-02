@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import AlertItem from '../components/shared/AlertItem.vue';
-import LoadingItem from '../components/shared/LoadingItem.vue';
-
 import { onMounted, ref } from 'vue';
 import AnimeCard from '../components/AnimeCard.vue';
 import getAnimes from '../helpers/GetAnimes';

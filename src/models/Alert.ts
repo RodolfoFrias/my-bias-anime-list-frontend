@@ -1,5 +1,11 @@
+export enum AlertType {
+    success = 'sucess',
+    info = 'info',
+    warning = 'warning',
+    error = 'error'
+}
 export interface Alert {
     text: string,
-    type: string,
+    type: AlertType,
     title: string
 }

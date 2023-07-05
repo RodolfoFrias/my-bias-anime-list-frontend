@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ref, defineEmits } from 'vue';
+  import { ref } from 'vue';
 
   const colors = ['red', 'orange', 'grey', 'cyan', 'green']
   const labels = ['bad', 'so so', 'ok', 'good', 'great']
